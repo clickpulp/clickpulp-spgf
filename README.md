@@ -2,7 +2,7 @@
 
 Currently in development. This project's goal is to provide a framework to create Phaser projects easily. The base project is based on Springroll and its intended purpose is to be able to create games that are run through Springroll.
 
-This project was initially created from the [SpringRoll Phaser3 template](https://github.com/SpringRoll/Springroll-Seed/tree/templates/phaser3).
+This project was initially cloned from the [SpringRoll Phaser3 template](https://github.com/SpringRoll/Springroll-Seed/tree/templates/phaser3).
 
 ## Setup
 
