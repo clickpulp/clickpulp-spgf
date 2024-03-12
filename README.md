@@ -1,23 +1,19 @@
-# Springroll Seed -- Phaser3
+# Clickpulp's Springroll Phaser Game Framework
 
-Developers should use SpringRoll Seed as a starting point for games projects. It comes bundled with Webpack, Babel, and a few node modules to streamline development. This versions comes with an example of how to implement a simple Springroll game using Phaser3
+Currently in development. This project's goal is to provide a framework to create Phaser projects easily. The base project is based on Springroll and its intended purpose is to be able to create games that are run through Springroll.
+
+This project was initially created from the [SpringRoll Phaser3 template](https://github.com/SpringRoll/Springroll-Seed/tree/templates/phaser3).
 
 ## Setup
 
 ```
-$ git clone -o template https://github.com/SpringRoll/Springroll-Seed.git my_project
-
-$ cd my_project
-
+$ git clone git@github.com:clickpulp/clickpulp-spgf.git
+$ cd clickpulp-spgf
+$ nvm install
 $ npm install
 ```
-From here you can add your own remote origin by typing `git remote add origin URL.git`.
-
-__Note__ To receive Springroll-Seed updates, use 'git pull template'.
 
 ## Commands
-
-SpringRoll Seed comes with three commands:
 
 ### npm start
 
