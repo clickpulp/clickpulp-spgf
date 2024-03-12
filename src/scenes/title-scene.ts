@@ -6,6 +6,8 @@ import { springrollGame } from '../SpringrollGame';
 
 export class TitleScene extends Phaser.Scene
 {
+    private textAnchor?: Anchor;
+
     preload()
     {
         // load assets

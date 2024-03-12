@@ -5,7 +5,11 @@ import { springrollGame } from '../SpringrollGame';
 
 export class Ball extends Phaser.GameObjects.Sprite
 {
-    constructor(scene, x, y)
+    private velY: number = 0;
+    private hitSound: any;
+    private sfxChangeBound: any;
+
+    constructor(scene: Phaser.Scene, x: number, y: number)
     {
         super(scene, x, y, 'ball');
         this.velY = 0; 
@@ -21,7 +25,7 @@ export class Ball extends Phaser.GameObjects.Sprite
         this.onSFXVolumeChange(sfxState.value);
     }
 
-    preUpdate(time, delta)
+    preUpdate(time: number, delta: number): void
     {
         this.velY += GAMEPLAY.GRAVITY;
         this.y += this.velY;
@@ -34,16 +38,18 @@ export class Ball extends Phaser.GameObjects.Sprite
             this.hitSound.play();
         }
 
+        // @ts-ignore
         super.update(time, delta);
     }
 
     destroy()
     {
+        // @ts-ignore
         this.scene.app.state.sfxVolume.unsubscribe(this.sfxChangeBound);
         super.destroy();
     }
 
-    onSFXVolumeChange(current)
+    onSFXVolumeChange(current: number)
     {
         if (isFinite(current)) {
             this.hitSound.volume = current;

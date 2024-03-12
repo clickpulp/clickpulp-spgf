@@ -1,10 +1,14 @@
-import { Application, SafeScaleManager } from "springroll";
+import { Application, SafeScaleManager, ScaleEvent } from "springroll";
 import { GAMEPLAY, SCENE } from "./constants";
 import { TitleScene, GameScene } from "./scenes";
 import { FactoryPlugin } from "./plugins";
-import Phaser from 'phaser';
+import Phaser, { Game } from 'phaser';
 
-class SpringrollGame {
+export class SpringrollGame {
+    application?: Application;
+    game?: Game;
+    safeScale?: SafeScaleManager;
+
     constructor() {
         // Instance of a Springroll.Application.
         // Flag any additional features. See https://github.com/SpringRoll/SpringRoll/tree/master/src
@@ -22,7 +26,7 @@ class SpringrollGame {
         this.application.state.ready.subscribe(this.onSpringrollApplicationReady.bind(this));
     }
 
-    onSpringrollApplicationReady(isReady) {
+    private onSpringrollApplicationReady(isReady: ConstrainBoolean) {
         if (isReady) {
             // Listen for container events from the application.
             this.application.state.pause.subscribe(this.onApplicationPause.bind(this));
@@ -44,6 +48,7 @@ class SpringrollGame {
                 height: GAMEPLAY.HEIGHT,
                 backgroundColor: '#000000',
                 parent: 'gameTarget',
+                // @ts-ignore
                 plugins: {
                     // FactoryPlugin is not necessary for Springroll, however it demonstrates
                     // how to setup and install a Phaser.Plugin.
@@ -66,7 +71,7 @@ class SpringrollGame {
         }
     }
 
-    onApplicationPause(value) {
+    private onApplicationPause(value: boolean) {
         if (value) {
             this.game.scene.pause(SCENE.GAME);
         }
@@ -75,11 +80,11 @@ class SpringrollGame {
         }
     }
 
-    onMasterVolumeChange(value) {
+    private onMasterVolumeChange(value: number) {
         this.game.sound.volume = value;
     }
 
-    onWindowResize({ scaleRatio }) {
+    private onWindowResize({ scaleRatio }: ScaleEvent) {
         this.game.canvas.style.width = `${GAMEPLAY.WIDTH * scaleRatio}px`;
         this.game.canvas.style.height = `${GAMEPLAY.HEIGHT * scaleRatio}px`;
     }

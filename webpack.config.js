@@ -40,7 +40,7 @@ module.exports = (env) => {
 
     context: path.resolve(__dirname, 'src'),
 
-    entry: path.join(__dirname, '/src/index.js'),
+    entry: path.join(__dirname, '/src/index.ts'),
     output: {
       filename: 'js/game.bundle.js',
       path: deploy
@@ -54,6 +54,10 @@ module.exports = (env) => {
 
     plugins,
 
+    resolve: {
+      extensions: ['*', '.js', '.ts'],
+    },
+
     module: {
       rules: [
         {
@@ -61,9 +65,9 @@ module.exports = (env) => {
           use: [MiniCssExtractPlugin.loader, 'css-loader']
         },
         {
-          test: /\.js$/,
+          test: /\.(js|ts)$/,
           exclude: /(node_modules|bower_components)/,
-          use: ['babel-loader']
+          use: ['babel-loader', 'ts-loader']
         },
         {
           test: /\.(otf|woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -111,7 +115,7 @@ module.exports = (env) => {
           ]
         },
         {
-          test: /\.js$/,
+          test: /\.(js|ts)$/,
           enforce: 'pre',
           use: ['source-map-loader'],
         },
