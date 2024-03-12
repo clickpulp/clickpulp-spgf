@@ -5,23 +5,19 @@ import { FactoryPlugin } from "./plugins";
 import Phaser, { Game } from 'phaser';
 
 export class SpringrollGame {
-    application?: Application;
-    game?: Game;
-    safeScale?: SafeScaleManager;
+    // Instance of a Springroll.Application.
+    // Flag any additional features. See https://github.com/SpringRoll/SpringRoll/tree/master/src
+    readonly application: Application = new Application({
+        features: {
+            sfx: true
+        }
+    });
+
+    private game?: Game;
+
+    public safeScale?: SafeScaleManager;
 
     constructor() {
-        // Instance of a Springroll.Application.
-        // Flag any additional features. See https://github.com/SpringRoll/SpringRoll/tree/master/src
-        this.application = new Application({
-            features: {
-                sfx: true
-            }
-        });
-
-        // Instance of a Phaser.Game.
-        // This will be initialized when the application is ready.
-        this.game = undefined;
-
         // Listen for when the application is ready.
         this.application.state.ready.subscribe(this.onSpringrollApplicationReady.bind(this));
     }
@@ -56,7 +52,6 @@ export class SpringrollGame {
                 }
             });
 
-            // Create a Springroll.SafeScaleManager.
             this.safeScale = new SafeScaleManager({
                 width: GAMEPLAY.WIDTH,
                 height: GAMEPLAY.HEIGHT,
@@ -72,6 +67,8 @@ export class SpringrollGame {
     }
 
     private onApplicationPause(value: boolean) {
+        if (!this.game) return;
+
         if (value) {
             this.game.scene.pause(SCENE.GAME);
         }
@@ -81,10 +78,14 @@ export class SpringrollGame {
     }
 
     private onMasterVolumeChange(value: number) {
+        if (!this.game) return;
+
         this.game.sound.volume = value;
     }
 
     private onWindowResize({ scaleRatio }: ScaleEvent) {
+        if (!this.game) return;
+
         this.game.canvas.style.width = `${GAMEPLAY.WIDTH * scaleRatio}px`;
         this.game.canvas.style.height = `${GAMEPLAY.HEIGHT * scaleRatio}px`;
     }

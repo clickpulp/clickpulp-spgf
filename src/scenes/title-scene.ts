@@ -40,7 +40,8 @@ export class TitleScene extends Phaser.Scene
                 startText.y = y;
             }
         });
-        springrollGame.safeScale.addEntity(this.textAnchor);
+
+        springrollGame.safeScale?.addEntity(this.textAnchor);
     }
 
     startText_onPointerDown()
